@@ -69,7 +69,7 @@ Measure the transition of resource usage when deploying 250 dummy pods step by s
 
 ## Why istio-bench
 
-In some cases, the usage of resource in Proxy and ControlPlane increases linearly with the number of pods in the cluster. Therefore, it is necessary to manage the capacity well to prevent stopping of Pod and Node because of OOM Killer. Those tendency of the resource usage is different depending on Istio versions and cluster settings. So, it is effective to estimate the resource consumption according to the number of pods using a benchmarker.
+In some cases, the usage of resource in Proxy and ControlPlane increases linearly with the number of pods in the cluster.  capacity must be well managed to prevent Pod and Node from stopping due to OOM Killer. Trends in resource usage will vary according to the version of Istio and cluster settings. Thus, it is effective to estimate the resource consumption according to the number of pods using a benchmarker.
 
 ## Contributing
 
