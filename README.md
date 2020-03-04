@@ -79,7 +79,7 @@ TBD
 
 - **Ide, Takaya** - Hitachi Ltd.
 - **Yu, Jiye** - Hitachi Ltd.
-- **Namanuma, Yuki** - Hitachi Ltd.
+- **Naganuma, Yuki** - Hitachi Ltd.
 - **Hatasaki, Keisuke** - Hitachi Ltd.
 
 ## License
