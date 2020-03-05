@@ -35,7 +35,7 @@ And run it
 
 ## Command line arguments
 
-```sh
+```txt
   -h, --help            show this help message and exit
   --max_pod MAX_POD     maximum number of pods used in the test (default: 500)
   --interval INTERVAL   number of pods to deploy at one time (default: 100)
