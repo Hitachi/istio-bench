@@ -22,7 +22,8 @@ This script will repeat deploying dummy pods and collect the usage of resources.
 Install istio-bench
 
 ```sh
-git clone <this repository>
+git clone https://github.com/Hitachi/istio-bench
+cd istio-bench
 pip install -r requirements.txt
 ```
 
