@@ -42,14 +42,9 @@ def make_output_dir(version: str, unixepoch: int, path: str) -> str:
 
 def get_istio_version() -> str:
     """
-    Get istio version such as 1.4.5, 1.3.2 from pilot container image
-
-    Returns
-    -------
-    version: str
-    version info such as 1.3.2, 1.4.5
+    Get istio version(e.g. 1.4.5, 1.3.2) from pilot container image
     """
-    cmd = "kubectl get pod -n istio-system -l app=pilot -o jsonpath='{.items[0].spec.containers[0].image}'"
+    cmd = "kubectl get pod -n istio-system -l istio=pilot -o jsonpath='{.items[0].spec.containers[0].image}'"
     imageName = command.run_sync(cmd)  # Output Sample: docker.io/istio/pilot:1.4.5
     return imageName[imageName.find(':')+1:]  # Extract version such as 1.4.5
 
