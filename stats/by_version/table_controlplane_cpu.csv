@@ -1,0 +1,6 @@
+1.4.5,pod,istio-pilot,prometheus-66c5887c86,istio-pilot
+1.4.5,container,discovery,prometheus,istio-proxy
+1.4.5,value,260.6244880773831,13.899260257581865,18.79451522467089
+1.5.0,pod,istiod-65c5b8df9d,prometheus-6fd77b7876,prometheus-6fd77b7876
+1.5.0,container,discovery,istio-proxy,prometheus
+1.5.0,value,239.47817659722546,16.29841106593362,13.207244591795904

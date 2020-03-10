@@ -1,0 +1,6 @@
+1.4.5,pod,istio-pilot,istio-ingressgateway,istio-policy
+1.4.5,container,POD,POD,POD
+1.4.5,value,26.025817247364145,0.04222110408893623,0.011980060605005559
+1.5.0,pod,istiod-65c5b8df9d,istio-ingressgateway,prometheus-6fd77b7876
+1.5.0,container,POD,POD,POD
+1.5.0,value,31.048816776400425,0.07308129279172995,0.0785489023498095
