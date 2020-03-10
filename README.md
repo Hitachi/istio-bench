@@ -13,8 +13,8 @@ This script will repeat deploying dummy pods and collect the usage of resources.
     - pip
     - kubectl >= 1.9.0
 - in remote cluster
-    - Kubernetes Cluster >= 1.9.0 (enough compute resources are recommended)
-    - Istio > 1.2, < 1.5 installed in istio-system Namespace
+    - Kubernetes Cluster >= 1.9.0 (with the enough compute resources)
+    - Istio > 1.2.0, <= 1.5.0 installed in istio-system Namespace
     - Prometheus installed in istio-system Namespace
 
 ## Get Started
@@ -70,7 +70,7 @@ Measure the transition of resource usage when deploying 250 dummy pods step by s
 
 ## Why istio-bench
 
-In some cases, the usage of resource in Proxy and ControlPlane increases linearly with the number of pods in the cluster.  capacity must be well managed to prevent Pod and Node from stopping due to OOM Killer. Trends in resource usage will vary according to the version of Istio and cluster settings. Thus, it is effective to estimate the resource consumption according to the number of pods using a benchmarker.
+In some cases, the usage of resource in Proxy and ControlPlane increases linearly with the number of pods in the cluster. Therefore, capacity must be well managed to prevent Pod and Node from stopping due to OOM Killer. Trends in resource usage will vary according to the version of Istio and cluster settings. Thus, it is effective to estimate the resource consumption according to the number of pods using a benchmarker.
 
 ## Contributing
 
