@@ -22,7 +22,7 @@ echo "Run istio-bench"
 echo "-------------------"
 
 python ./istio-bench.py \
---max_pod 250 \
+--max_pod 400 \
 --interval 50 \
 --output $OUT_DIR \
 --verbose=0
