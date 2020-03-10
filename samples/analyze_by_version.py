@@ -1,0 +1,180 @@
+#!/usr/bin/env python
+
+# Copyright 2020 Istio-Bench Authors and Hitachi Ltd.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Generate stats files to compare resoruce usage by istio version
+
+import argparse
+import pathlib
+import itertools
+from logging import getLogger, StreamHandler, Formatter, WARNING
+
+POD_NUM = 1000
+
+
+def run(args):
+    define_rootlogger(args.verbose)
+    logger = getLogger(__name__)
+
+    script_path = pathlib.Path(__file__).resolve().parent
+    data_path = script_path / args.data
+    out_path = script_path / args.output
+    print("Data:", data_path.resolve())
+    print("Output:", out_path.resolve())
+    print("---")
+    out_path.mkdir(parents=True, exist_ok=True)
+
+    report_file = list(data_path.glob("report.md"))[0]
+    version = get_istio_version(report_file)
+    logger.debug("Istio_Version: {}".format(version))
+
+    # Istio Proxy
+    target = "table_istioproxy_*"
+    for file in data_path.glob(target):
+        output = out_path / file.name
+        logger.debug("Output_Filename: {}".format(output.resolve()))
+
+        current = get_current_data(output, version)
+        new = get_istioproxy_data(file, version)
+        logger.debug("Current: {}".format(current))
+        logger.debug("New: {}".format(new))
+
+        update(output, current, new)
+        print("Update: {}".format(output.resolve()))
+
+    # Control Plane
+    target = "table_controlplane_*"
+    for file in data_path.glob(target):
+        output = out_path / file.name
+        logger.debug("Output_Filename: {}".format(output.resolve()))
+
+        current = get_current_data(output, version)
+        new = get_controlplane_data(file, version)
+        logger.debug("Current: {}".format(current))
+        logger.debug("New: {}".format(new))
+
+        update(output, current, new)
+        print("Update: {}".format(output.resolve()))
+
+
+def update(file, old: list, current: list):
+    data = old + current
+    data = sorted(data, key=lambda x: x.split(",")[0])
+    data = "\n".join(data) + "\n"
+    with file.open(mode='w') as f:
+        f.write(data)
+
+
+def get_current_data(file, version: str) -> list:
+    if not file.exists():
+        return []
+
+    data = None
+    with file.open() as f:
+        # strip() is for remove the new_line in the end od line
+        data = [x.strip() for x in f.readlines() if not x.startswith(version)]
+
+    return data
+
+
+def get_controlplane_data(file, version: str) -> list:
+    head = None
+    data = None
+    with file.open() as f:
+        alldata = f.readlines()
+        head = [x.strip() for x in alldata[:2]]  # Names of pod and container
+        data = [x for x in alldata if x.startswith(str(POD_NUM))][0]
+
+    if not head or not data:
+        raise Exception("Data Not Found:{}".format(str(file.resolve())))
+
+    # remove 1st column such as "1000,"
+    data = "value,{}".format(data.lstrip("{},".format(POD_NUM)).strip())
+    new = head + [data]
+    new = ["{},{}".format(version, x) for x in new]
+    return new
+
+
+def get_istioproxy_data(file, version: str) -> list:
+    data = None
+    with file.open() as f:
+        data = [x for x in f.readlines() if x.startswith(str(POD_NUM))][0]
+
+    if not data:
+        raise Exception("Data Not Found:{}".format(str(file.resolve())))
+
+    data = data.lstrip("{},".format(POD_NUM)).strip()
+    new = ["{},{}".format(version, data)]
+    return new
+
+
+def get_istio_version(report_file):
+    version = None
+    with report_file.open() as f:
+        # e.g) - Istio: 1.5.0
+        version = [x for x in f.readlines() if "Istio:" in x][0]
+    if not version:
+        raise Exception("Version not exist in report file")
+
+    return version.split(":")[1].strip()
+
+
+def define_rootlogger(verbose: int):
+    # https://docs.python.org/3/library/logging.html?highlight=notset#logging-levels
+    loglevel = WARNING - verbose*10
+
+    formatter = Formatter("%(asctime)s [%(levelname)s] %(message)s")
+    handler = StreamHandler()
+    handler.setLevel(loglevel)
+    handler.setFormatter(formatter)
+
+    rootlogger = getLogger()
+    rootlogger.setLevel(loglevel)
+    rootlogger.addHandler(handler)
+
+
+def get_parser():
+    parser = argparse.ArgumentParser(
+        description="Generate stats files to compare resoruce usage by istio version",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser.add_argument(
+        "-d", "--data",
+        help="Directory path of the data sources generated by istio-bench",
+        default="../output_sample"
+    )
+    parser.add_argument(
+        "-o", "--output",
+        help="Directory path of istio-bench",
+        default="../stats/by_version"
+    )
+    parser.add_argument(
+        "-v", "--verbose",
+        help="increase output verbosity[-2 < x < 2]",
+        type=int,
+        default=0
+    )
+    return parser
+
+
+def main(argv):
+    args = get_parser().parse_args(argv)
+    return run(args)
+
+
+if __name__ == "__main__":
+    import sys
+
+    sys.exit(main(sys.argv[1:]))
