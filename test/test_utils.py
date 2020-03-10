@@ -23,10 +23,9 @@ class TestCommand(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_get_version(self):
+    def test_get_istio_version(self):
         version = utils.get_istio_version()
-        print(version)
-        self.assertEqual(type(version), str)
+        self.assertRegex(version, "[0-9]\.[0-9]\.[0-9]") # e.g. 1.5.0
 
 
 if __name__ == "__main__":
