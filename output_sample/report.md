@@ -1,7 +1,7 @@
 # Istio Resource Usage
 
-- Date & Time: 03/04/2020, 06:16:18
-- Istio: 1.4.5
+- Date & Time: 03/08/2020, 17:38:34
+- Istio: 1.5.0
 
 ## Istio Proxy
 
@@ -77,9 +77,15 @@ Raw Data
     - [istioproxy-0150pod.csv](istioproxy-0150pod.csv)
     - [istioproxy-0200pod.csv](istioproxy-0200pod.csv)
     - [istioproxy-0250pod.csv](istioproxy-0250pod.csv)
+    - [istioproxy-0300pod.csv](istioproxy-0300pod.csv)
+    - [istioproxy-0350pod.csv](istioproxy-0350pod.csv)
+    - [istioproxy-0400pod.csv](istioproxy-0400pod.csv)
 - ControlPlane
     - [controlplane-0050pod.csv](controlplane-0050pod.csv)
     - [controlplane-0100pod.csv](controlplane-0100pod.csv)
     - [controlplane-0150pod.csv](controlplane-0150pod.csv)
     - [controlplane-0200pod.csv](controlplane-0200pod.csv)
     - [controlplane-0250pod.csv](controlplane-0250pod.csv)
+    - [controlplane-0300pod.csv](controlplane-0300pod.csv)
+    - [controlplane-0350pod.csv](controlplane-0350pod.csv)
+    - [controlplane-0400pod.csv](controlplane-0400pod.csv)
