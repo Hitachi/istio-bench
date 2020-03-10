@@ -19,6 +19,6 @@ TARGET = {"PROXY": "IstioProxy", "CONTROL": "ControlPlane"}
 RESOURCES = {
     "CPU": {"TITLE": "CPU", "UNIT": "%", "CONTAINER": "ISTIO_PROXY"},
     "MEMORY": {"TITLE": "Memory", "UNIT": "MiB", "CONTAINER": "ISTIO_PROXY"},
-    "TRAFFIC_TX": {"TITLE": "Traffic Tx", "UNIT": "bps", "CONTAINER": "APP"},
-    "TRAFFIC_RX": {"TITLE": "Traffic Rx", "UNIT": "bps", "CONTAINER": "APP"},
+    "TRAFFIC_TX": {"TITLE": "Traffic Tx", "UNIT": "Mbps", "CONTAINER": "APP"},
+    "TRAFFIC_RX": {"TITLE": "Traffic Rx", "UNIT": "Mbps", "CONTAINER": "APP"},
 }
