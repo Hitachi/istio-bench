@@ -24,10 +24,10 @@ class TestCommand(unittest.TestCase):
         pass
 
     def test_sync(self):
-        self.assertEqual("abcde", command.run_sync('echo abcde'))
+        self.assertEqual("abcde", command.run_sync("echo abcde"))
 
     def test_async(self):
-        process = command.run_async('echo abcde')
+        process = command.run_async("echo abcde")
         process.kill()
 
 
