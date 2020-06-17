@@ -43,13 +43,13 @@ class Chart:
         filenames = sorted(glob.glob(template))
 
         template = os.path.join(
-            self.outdir, "{}-([0-9]*)pod.csv".format(target.lower())
+            self.outdir, "{}-([0-9]*)svc.csv".format(target.lower())
         )
-        pod_num = [int(re.sub(template, "\\1", x)) for x in filenames]
+        svc_num = [int(re.sub(template, "\\1", x)) for x in filenames]
 
         dfs = [pd.read_csv(f, index_col=[0, 1]) for f in filenames]
-        col = [tuple(map(lambda x: (i, x), dfs[0].columns)) for i in pod_num]
-        col = pd.MultiIndex.from_product((pod_num, dfs[0].columns))
+        col = [tuple(map(lambda x: (i, x), dfs[0].columns)) for i in svc_num]
+        col = pd.MultiIndex.from_product((svc_num, dfs[0].columns))
         integrate = pd.concat(dfs, axis=1)
         integrate.columns = col
         integrate = integrate.reorder_levels([1, 0], axis=1).sort_index(axis=1)
@@ -74,7 +74,7 @@ class Chart:
             self.__savefig(target, k)
             plt.clf()  # clear current figure for next chart
 
-    def predict_draw_and_save(self, target):
+    def predict_draw_and_save(self, target, no_chart):
         """
         Predict resource usage in 0-2000 pod and Draw it
         """
@@ -98,8 +98,9 @@ class Chart:
 
             name = const.RESOURCES[k]["TITLE"]
             unit = const.RESOURCES[k]["UNIT"]
-            self.__set_chart_format(target, name, unit, is_predicated=True)
-            self.__savefig(target, k, is_predicated=True)
+            if not no_chart:
+                self.__set_chart_format(target, name, unit, is_predicated=True)
+                self.__savefig(target, k, is_predicated=True)
             self.__savecsv(target, k, pred)
             plt.clf()  # clear current figure for next chart
 
@@ -122,7 +123,7 @@ class Chart:
         return pred, param
 
     def __set_chart_format(self, target, resource_name, unit, is_predicated=False):
-        title = "{target} {resource_name} Usage per Pod{pred} [{istio_version}]".format(
+        title = "{target} {resource_name} Usage per Service{pred} [{istio_version}]".format(
             target=target,
             resource_name=resource_name,
             istio_version=self.istio_version,
@@ -135,7 +136,7 @@ class Chart:
                 resource_name=resource_name, unit=unit
             )
         )
-        plt.xlabel("Pods")
+        plt.xlabel("Services")
 
     def __savefig(self, target, resource, is_predicated=False):
         filename = (

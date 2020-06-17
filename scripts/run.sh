@@ -1,8 +1,7 @@
 #!/bin/bash
 
 #
-# Run istio-bench to generate
-# sample results in `output_sample` directory
+# Run istio-bench to generate `output_sample`
 #
 
 set -eu
@@ -21,10 +20,9 @@ fi
 echo "Run istio-bench"
 echo "-------------------"
 
-python ./istio-bench.py \
---max_pod 400 \
---interval 50 \
+python ./istio-bench.py 1000\
+--by 100 \
 --output $OUT_DIR \
---verbose=0
+--verbose 0
 
 cd ${CURRENT_DIR}

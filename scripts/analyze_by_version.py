@@ -18,7 +18,6 @@
 
 import argparse
 import pathlib
-import itertools
 from logging import getLogger, StreamHandler, Formatter, WARNING
 
 POD_NUM = 1000
@@ -38,7 +37,7 @@ def run(args):
 
     report_file = list(data_path.glob("report.md"))[0]
     version = get_istio_version(report_file)
-    logger.debug("Istio_Version: {}".format(version))
+    logger.info("Istio_Version: {}".format(version))
 
     # Istio Proxy
     target = "table_istioproxy_*"
@@ -73,7 +72,7 @@ def update(file, old: list, current: list):
     data = old + current
     data = sorted(data, key=lambda x: x.split(",")[0])
     data = "\n".join(data) + "\n"
-    with file.open(mode='w') as f:
+    with file.open(mode="w") as f:
         f.write(data)
 
 
@@ -133,7 +132,7 @@ def get_istio_version(report_file):
 
 def define_rootlogger(verbose: int):
     # https://docs.python.org/3/library/logging.html?highlight=notset#logging-levels
-    loglevel = WARNING - verbose*10
+    loglevel = WARNING - verbose * 10
 
     formatter = Formatter("%(asctime)s [%(levelname)s] %(message)s")
     handler = StreamHandler()

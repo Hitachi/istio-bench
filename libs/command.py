@@ -12,9 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
-from subprocess import Popen, DEVNULL
-from subprocess import getoutput
+from logging import getLogger
+from subprocess import Popen, DEVNULL, getoutput, CalledProcessError, SubprocessError
+
+logger = getLogger(__name__)
 
 
 def run_sync(command: str) -> str:
@@ -22,10 +23,15 @@ def run_sync(command: str) -> str:
     Returns
     -------
     stdout: str
-    standard output
+    Standard output
     """
-    logging.debug("run subprocess sync: %s" % command)
-    op = getoutput(command)
+    logger.debug("Run subprocess with sync: {}".format(command))
+    try:
+        op = getoutput(command)
+    except CalledProcessError as e:
+        logger.error("Failed to run command: {}".format(e))
+        raise e
+
     return op.strip()
 
 
@@ -36,6 +42,11 @@ def run_async(command: str, stdout=DEVNULL) -> Popen:
     process: Popen
     Popen object in subprocess to kill process.
     """
-    logging.debug("run subprocess async: %s" % command)
-    process = Popen(command.split(" "), stdout=stdout)
+    logger.debug("Run subprocess with async: %s" % command)
+    try:
+        process = Popen(command.split(" "), stdout=stdout)
+    except SubprocessError as e:
+        logger.error("Failed to run command with async: {}".format(e))
+        raise e
+
     return process

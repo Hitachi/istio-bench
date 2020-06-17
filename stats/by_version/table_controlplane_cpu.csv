@@ -1,6 +1,9 @@
 1.4.5,pod,istio-pilot,prometheus-66c5887c86,istio-pilot
 1.4.5,container,discovery,prometheus,istio-proxy
-1.4.5,value,260.6244880773831,13.899260257581865,18.79451522467089
-1.5.0,pod,istiod-65c5b8df9d,prometheus-6fd77b7876,prometheus-6fd77b7876
-1.5.0,container,discovery,istio-proxy,prometheus
-1.5.0,value,239.47817659722546,16.29841106593362,13.207244591795904
+1.4.5,value,588.6240368241322,36.17066074364798,7.669428264551647
+1.5.0,pod,istiod-65c5b8df9d,prometheus-6fd77b7876,istio-ingressgateway
+1.5.0,container,discovery,prometheus,istio-proxy
+1.5.0,value,431.7467887544571,60.426273595442794,-17.664668632856685
+1.6.2,pod,prometheus-7c9ddc484d,istiod-7599c64cb4,prometheus-7c9ddc484d
+1.6.2,container,prometheus,discovery,istio-proxy
+1.6.2,value,3.9003956745305266,3.6439296885085812,0.7375022009249328

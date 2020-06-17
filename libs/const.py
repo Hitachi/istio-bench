@@ -12,9 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-DUMMY_OUTPUT_DIR = "./output-istio[version]-[timestamp]"
+AGGREGATE_MODE = True
+AGGREGATE_NUMBER = 10
+DEFAULT_OUTPUT_DIR = "./output-istio-{version}-{unixepoch}"
+PREFIX = "dummy"
+DELETE_LABEL = "deployedBy=istio-bench"
 TEMPLATE_DIR = "./template"
 PROMETHEUS_URL = "http://127.0.0.1:9090"
+WAIT_SECOND = 90
+MEASURE_SECOND = 60
 TARGET = {"PROXY": "IstioProxy", "CONTROL": "ControlPlane"}
 RESOURCES = {
     "CPU": {"TITLE": "CPU", "UNIT": "%", "CONTAINER": "ISTIO_PROXY"},

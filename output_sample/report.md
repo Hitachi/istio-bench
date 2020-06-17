@@ -1,7 +1,7 @@
 # Istio Resource Usage
 
-- Date & Time: 03/08/2020, 17:38:34
-- Istio: 1.5.0
+- Date & Time: 06/17/2020, 04:36:39
+- Istio: 1.6.2
 
 ## Istio Proxy
 
@@ -72,20 +72,24 @@ Predicated
 Raw Data
 
 - Istio-Proxy
-    - [istioproxy-0050pod.csv](istioproxy-0050pod.csv)
-    - [istioproxy-0100pod.csv](istioproxy-0100pod.csv)
-    - [istioproxy-0150pod.csv](istioproxy-0150pod.csv)
-    - [istioproxy-0200pod.csv](istioproxy-0200pod.csv)
-    - [istioproxy-0250pod.csv](istioproxy-0250pod.csv)
-    - [istioproxy-0300pod.csv](istioproxy-0300pod.csv)
-    - [istioproxy-0350pod.csv](istioproxy-0350pod.csv)
-    - [istioproxy-0400pod.csv](istioproxy-0400pod.csv)
+    - [istioproxy-0100svc.csv](istioproxy-0100svc.csv)
+    - [istioproxy-0200svc.csv](istioproxy-0200svc.csv)
+    - [istioproxy-0300svc.csv](istioproxy-0300svc.csv)
+    - [istioproxy-0400svc.csv](istioproxy-0400svc.csv)
+    - [istioproxy-0500svc.csv](istioproxy-0500svc.csv)
+    - [istioproxy-0600svc.csv](istioproxy-0600svc.csv)
+    - [istioproxy-0700svc.csv](istioproxy-0700svc.csv)
+    - [istioproxy-0800svc.csv](istioproxy-0800svc.csv)
+    - [istioproxy-0900svc.csv](istioproxy-0900svc.csv)
+    - [istioproxy-1000svc.csv](istioproxy-1000svc.csv)
 - ControlPlane
-    - [controlplane-0050pod.csv](controlplane-0050pod.csv)
-    - [controlplane-0100pod.csv](controlplane-0100pod.csv)
-    - [controlplane-0150pod.csv](controlplane-0150pod.csv)
-    - [controlplane-0200pod.csv](controlplane-0200pod.csv)
-    - [controlplane-0250pod.csv](controlplane-0250pod.csv)
-    - [controlplane-0300pod.csv](controlplane-0300pod.csv)
-    - [controlplane-0350pod.csv](controlplane-0350pod.csv)
-    - [controlplane-0400pod.csv](controlplane-0400pod.csv)
+    - [controlplane-0100svc.csv](controlplane-0100svc.csv)
+    - [controlplane-0200svc.csv](controlplane-0200svc.csv)
+    - [controlplane-0300svc.csv](controlplane-0300svc.csv)
+    - [controlplane-0400svc.csv](controlplane-0400svc.csv)
+    - [controlplane-0500svc.csv](controlplane-0500svc.csv)
+    - [controlplane-0600svc.csv](controlplane-0600svc.csv)
+    - [controlplane-0700svc.csv](controlplane-0700svc.csv)
+    - [controlplane-0800svc.csv](controlplane-0800svc.csv)
+    - [controlplane-0900svc.csv](controlplane-0900svc.csv)
+    - [controlplane-1000svc.csv](controlplane-1000svc.csv)

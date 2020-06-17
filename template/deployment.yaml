@@ -1,0 +1,27 @@
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    deployedBy: istio-bench
+    id: {name}
+  name: {name}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployedBy: istio-bench
+      id: {name}
+  template:
+    metadata:
+      labels:
+        deployedBy: istio-bench
+        id: {name}
+    spec:
+      containers:
+      - image: nginx:1.17.5-alpine
+        imagePullPolicy: IfNotPresent
+        name: nginx
+        ports:
+        - containerPort: 80

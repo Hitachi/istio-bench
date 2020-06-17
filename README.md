@@ -6,6 +6,14 @@ This script will repeat deploying dummy pods and collect the usage of resources.
 
 ![architecture](docs/images/istio-bench-arch.svg)
 
+## Sample Results
+
+<img alt="Predicted Memory Usage of istio-proxy" src="./output_sample/chart_istioproxy_memory_predicated.svg" height="80%" width="80%" />
+
+<img alt="Memory Usage of controlplane" src="./output_sample/chart_controlplane_memory.svg" height="80%" width="80%" />
+
+See all samples [here](./output_sample/report.md).
+
 ## Prerequirements
 
 - in local machine
@@ -13,8 +21,8 @@ This script will repeat deploying dummy pods and collect the usage of resources.
     - pip
     - kubectl >= 1.9.0
 - in remote cluster
-    - Kubernetes Cluster >= 1.9.0 (with the enough compute resources)
-    - Istio > 1.2.0, <= 1.5.0 installed in istio-system Namespace
+    - Kubernetes Cluster >= 1.9.0 (enough compute resources are recommended)
+    - Istio > 1.2 installed in istio-system Namespace
     - Prometheus installed in istio-system Namespace
 
 ## Get Started
@@ -36,26 +44,30 @@ And run it
 ## Command line arguments
 
 ```txt
-  -h, --help            show this help message and exit
-  --max_pod MAX_POD     maximum number of pods used in the test (default: 500)
-  --interval INTERVAL   number of pods to deploy at one time (default: 100)
-  --prometheus_url PROMETHEUS_URL
-                        url of prometheus. default url uses kubectl port-
-                        forward automatically (default: http://127.0.0.1:9090)
-  --manifest MANIFEST   manifest filepath of dummmy pods
-                         (default: ./template/nginx.yaml)
-  --ns_manifest NS_MANIFEST
-                        manifest filepath of dummmy namespaces
-                        (default: /template/namespace.yaml)
-  --prefix PREFIX        prefix of pod and namespaces for test
-                        (default: dummy-)
-  --no-graph            do not output graph image(svg) (default: False)
-  -o OUTPUT, --output OUTPUT
-                        Path of the output directory (default: ./output-
-                        istio[version]-[timestamp])
-  -v VERBOSE, --verbose VERBOSE
-                        increase output verbosity[-2 < x < 2] (default: 0)
-  --version             get version (default: False)
+usage: istio-bench.py [-h] [--by number] [--prometheus url] [--namespace file] [--deployment file]
+                      [--service file] [--no-chart] [--no-predict] [-o dir] [--isolate]
+                      [--verbose {0,1,2,3,4}] [-V]
+                      services
+
+measures cpu, memory, and network usage of Istio for each service
+
+positional arguments:
+  services               number of services to be deployed as a workload
+
+optional arguments:
+  -h, --help             show this help message and exit
+  --by number            number of Services by namespace (default: 100)
+  --prometheus url       url of Prometheus. The default url uses kubectl port-forward (default:
+                         http://127.0.0.1:9090)
+  --namespace file       path of Namespace template file (default: ./template/namespace.yaml)
+  --deployment file      path of Deployment template file (default: ./template/deployment.yaml)
+  --service file         path of Service template file (default: ./template/service.yaml)
+  --no-chart             do not output chart image(svg) (default: False)
+  --no-predict           do not predict resource usage (default: False)
+  -o dir, --output dir   path of the output directory (default: ./output-istio-{version}-{unixepoch})
+  --isolate              [NOT IMPLEMENTED] isolate envoy xDS by namespace (default: False)
+  --verbose {0,1,2,3,4}  number for the log level verbosity (default: 0)
+  -V, --version          show program's version number and exit```
 ```
 
 ## Examples for usage and output

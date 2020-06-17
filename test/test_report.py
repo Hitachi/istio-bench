@@ -24,13 +24,13 @@ class TestReport(unittest.TestCase):
         pass
 
     def test_generate_without_chart(self):
-        report = Report('1.5.0', "02/02/2020 02:02:02",
-                        './output_sample', has_chart=False)
+        report = Report("1.5.0", "02/02/2020 02:02:02",
+                        "./output_sample", has_chart=False)
         report.generate()
 
     def test_generate(self):
-        report = Report('1.5.0', "02/02/2020 02:02:02",
-                        './output_sample', has_chart=True)
+        report = Report("1.5.0", "02/02/2020 02:02:02",
+                        "./output_sample", has_chart=True)
         report.generate()
 
 
