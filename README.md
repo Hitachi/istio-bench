@@ -8,9 +8,9 @@ This script will repeat deploying dummy pods and collect the usage of resources.
 
 ## Sample Results
 
-<img alt="Predicted Memory Usage of istio-proxy" src="./output_sample/chart_istioproxy_memory_predicated.svg" height="50%" width="50%" />
+<img alt="Predicted Memory Usage of istio-proxy" src="./output_sample/chart_istioproxy_memory_predicated.svg" height="80%" width="80%" />
 
-<img alt="Predicted Memory Usage of controlplane" src="./output_sample/chart_controlplane_memory_predicated.svg" height="50%" width="50%" />
+<img alt="Memory Usage of controlplane" src="./output_sample/chart_controlplane_memory.svg" height="80%" width=80%" />
 
 See all samples [here](./output_sample/report.md).
 
