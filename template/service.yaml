@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    deployedBy: istio-bench
+    id: {name}
+  name: {name}
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  selector:
+    deployedBy: istio-bench
+    id: {deployment_name}

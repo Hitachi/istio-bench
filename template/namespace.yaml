@@ -3,4 +3,5 @@ kind: Namespace
 metadata:
   labels:
     istio-injection: enabled
-  name: test
+    deployedBy: istio-bench
+  name: {name}
