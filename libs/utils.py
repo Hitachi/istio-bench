@@ -16,14 +16,12 @@ from time import time
 from datetime import datetime
 from pathlib import Path
 from libs import command
-from logging import getLogger, StreamHandler, Formatter, WARNING
+from libs import const
+from logging import getLogger, StreamHandler, Formatter, ERROR
 
 
-def get_unixepoch() -> int:
-    """
-    Get Unix Epoch by sec
-    """
-    return int(time())  # sec
+def get_unixepoch_by_sec() -> int:
+    return int(time())
 
 
 def uepoch2timestamp(uepoch: int) -> str:
@@ -32,9 +30,10 @@ def uepoch2timestamp(uepoch: int) -> str:
 
 
 def make_output_dir(version: str, unixepoch: int, path: str) -> str:
-    if not path:
-        path = "output-istio-{version}-{unixepoch}".format(
-            version=version, unixepoch=unixepoch)
+    if not path or path == const.DEFAULT_OUTPUT_DIR:
+        path = const.DEFAULT_OUTPUT_DIR.format(
+            version=version,
+            unixepoch=unixepoch)
     Path(path).mkdir(parents=True, exist_ok=True)
 
     return path
@@ -46,7 +45,7 @@ def get_istio_version() -> str:
     """
     cmd = "kubectl get pod -n istio-system -l istio=pilot -o jsonpath='{.items[0].spec.containers[0].image}'"
     imageName = command.run_sync(cmd)  # Output Sample: docker.io/istio/pilot:1.4.5
-    return imageName[imageName.find(':')+1:]  # Extract version such as 1.4.5
+    return imageName[imageName.find(":") + 1:]  # Extract version such as 1.4.5
 
 
 def get_version() -> str:
@@ -57,9 +56,9 @@ def get_version() -> str:
     return version
 
 
-def define_rootlogger(verbose: int):
+def setup_logger(verbose: int):
     # https://docs.python.org/3/library/logging.html?highlight=notset#logging-levels
-    loglevel = WARNING - verbose*10
+    loglevel = ERROR - verbose * 10
 
     formatter = Formatter("[%(asctime)s][%(name)s][%(levelname)s] %(message)s")
     handler = StreamHandler()
