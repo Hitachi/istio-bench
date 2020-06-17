@@ -20,7 +20,7 @@ import argparse
 import pathlib
 from logging import getLogger, StreamHandler, Formatter, WARNING
 
-POD_NUM = 1000
+TARGET_NUM = 1000
 
 
 def run(args):
@@ -94,13 +94,14 @@ def get_controlplane_data(file, version: str) -> list:
     with file.open() as f:
         alldata = f.readlines()
         head = [x.strip() for x in alldata[:2]]  # Names of pod and container
-        data = [x for x in alldata if x.startswith(str(POD_NUM))][0]
+        data = [x for x in alldata if x.startswith(str(TARGET_NUM))][0]
 
     if not head or not data:
         raise Exception("Data Not Found:{}".format(str(file.resolve())))
 
-    # remove 1st column such as "1000,"
-    data = "value,{}".format(data.lstrip("{},".format(POD_NUM)).strip())
+    # replace 1st column from "1000" to "value"
+    # [NOTE] replace only once. Do NOT change metrics value
+    data = data.replace("{},".format(TARGET_NUM), "value,", 1)
     new = head + [data]
     new = ["{},{}".format(version, x) for x in new]
     return new
@@ -109,12 +110,13 @@ def get_controlplane_data(file, version: str) -> list:
 def get_istioproxy_data(file, version: str) -> list:
     data = None
     with file.open() as f:
-        data = [x for x in f.readlines() if x.startswith(str(POD_NUM))][0]
+        data = [x for x in f.readlines() if x.startswith(str(TARGET_NUM))][0]
 
     if not data:
-        raise Exception("Data Not Found:{}".format(str(file.resolve())))
+        raise TypeError("Data Not Found:{}".format(str(file.resolve())))
 
-    data = data.lstrip("{},".format(POD_NUM)).strip()
+    # 1000,163.0398289535985 -> 163.0398289535985
+    data = data.split(",")[1]
     new = ["{},{}".format(version, data)]
     return new
 
